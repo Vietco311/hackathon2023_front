@@ -1,26 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import React, { useState } from 'react';
 import './App.css';
 
 function App() {
   const [input, setInput] = useState('');
+  const [viewVisible, setViewVisible] = useState(false);
   const [messages, setMessages] = useState([]);
 
-const chatWithBot = async (userInput) => {
-    const apiEndpoint = 'https://hackathon-2023-api.carlotti-toussaint.com/api/chat';
+  const chatWithBot = async (userInput) => {
+    console.log(userInput)
+      const apiEndpoint = 'https://hackathon-2023-api.carlotti-toussaint.com/api/chat';
 
-    const data = {
-      prompt: userInput,
-      max_tokens: 150
-    };
-try {
-      const response = await axios.post(apiEndpoint, data, { withCredentials: true });
-      return response.data.choices[0].text.trim();
-    } catch (error) {
-      console.error('Error communicating with the API:', error.message);
-      return '';
-    }
+      const data = {
+        message:"salut"
+      };
+  try {
+        const response = await axios.post(apiEndpoint, data, { withCredentials: true });
+        return response.data.choices[0].text.trim();
+      } catch (error) {
+        console.error('Error communicating with the API:', error);
+        return '';
+      }
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -51,25 +51,24 @@ try {
                 <hr/>
                 {<div className="messages">
                   {messages.map((msg,index) => {
-                    return (
-                        <div key={index}>{msg.role}: {msg.content}</div>
-                    )
+                    <div
+                    key={index}
+                    className={`message ${msg.user ? 'user-message' : 'ai-message'}`}
+                  >
+                    {msg.text}
+                  </div>
                   })}
                 </div>}
               </div>
               {viewVisible && (
                 <div id="view" className="visible">
-                  <form onSubmit={e => handleSubmit(e)}>
+                <form onSubmit={e => handleSubmit(e)}>
                   <div className="card-footer">
-                    <input id="username"
-                          type="text"
-                          placeholder="Nom"
-                          className="form-control"
-                    />
-                    <br/>
                     <input id="text"
                           type="text"
-                          placeholder="Votre message"
+                          value={input}
+                          onChange={(e) => setInput(e.target.value)}
+                          placeholder="Rentrez votre message..."
                           className="form-control"
                     />
                     <br/>
