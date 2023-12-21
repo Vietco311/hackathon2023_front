@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import ChatBot from 'react-simple-chatbot';
-
+import React, { useState } from 'react';
+import './App.css';
 
 function App() {
   const [input, setInput] = useState('');
@@ -34,6 +34,11 @@ try {
     setMessages((prevMessages) => [...prevMessages.slice(0, -1), newAiMessage]);
     setInput('');
   }
+
+    const toggleView = () => {
+      setViewVisible(!viewVisible);
+    };
+
     return (
       
       
@@ -42,10 +47,7 @@ try {
           <div className="col-4">
             <div className="card">
               <div className="card-body">
-              <div>
-              </div>
-              
-                <div className="card-title">My first chat</div>
+                <div className="card-title">Chat</div>
                 <hr/>
                 {<div className="messages">
                   {messages.map((msg,index) => {
@@ -55,27 +57,28 @@ try {
                   })}
                 </div>}
               </div>
-              
-              <form onSubmit={e => handleSubmit(e)}>
-                <div className="card-footer">
-                  <input id="username"
-                         type="text"
-                         placeholder="Username"
-                         className="form-control"
-                  />
-                  <br/>
-                  <input id="text"
-                         type="text"
-                         placeholder="Your message"
-                         className="form-control"
-                  />
-                  <br/>
-                  <button type="submit"
-                          className="btn btn-primary form-control">
-                    send
-                  </button>
+              {viewVisible && (
+                <div id="view" className="visible">
+                  <form onSubmit={e => handleSubmit(e)}>
+                  <div className="card-footer">
+                    <input id="username"
+                          type="text"
+                          placeholder="Nom"
+                          className="form-control"
+                    />
+                    <br/>
+                    <input id="text"
+                          type="text"
+                          placeholder="Votre message"
+                          className="form-control"
+                    />
+                    <br/>
+                    <button type="submit">Envoyer </button>
+                  </div>
+                </form>
                 </div>
-              </form>
+              )}
+              <button className="chat-button" onClick={toggleView}><img src="logoChatNB.svg" alt="Chat logo" /> </button>
             </div>
           </div>
         </div>
