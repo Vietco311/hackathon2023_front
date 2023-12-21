@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './App.css';
+import logoChat from './logoChat.svg';
 
 function App() {
   const [input, setInput] = useState('');
@@ -12,11 +13,13 @@ function App() {
       const apiEndpoint = 'https://hackathon-2023-api.carlotti-toussaint.com/api/chat';
 
       const data = {
-        message:"salut"
+        message:userInput
       };
   try {
         const response = await axios.post(apiEndpoint, data, { withCredentials: true });
-        return response.data.choices[0].text.trim();
+        console.log(response.data)
+        console.log(messages)
+        return response.data.conversation[1].content;
       } catch (error) {
         console.error('Error communicating with the API:', error);
         return '';
@@ -56,7 +59,7 @@ function App() {
                   {messages.map((msg, index) => (
                     <div
                       key={index}
-                      className={`message ${msg.user ? 'user-message' : 'ai-message'}`}
+                      className={`message ${msg.user  ? 'user-message' : 'ai-message'}`}
                     >
                       {msg.text}
                     </div>
@@ -79,7 +82,7 @@ function App() {
             )}
             <div className="chat-button-container">
               <button className="chat-button" onClick={toggleView}>
-                <img src="/src/logoChat.svg" alt="Chat logo" />
+                <img src={logoChat} alt="Chat logo" />
               </button>
             </div>
           </div>
