@@ -10,42 +10,37 @@ function App() {
 
   const chatWithBot = async (userInput) => {
     console.log(userInput)
-      const apiEndpoint = 'https://hackathon-2023-api.carlotti-toussaint.com/api/chat';
+    const apiEndpoint = 'https://hackathon-2023-api.carlotti-toussaint.com/api/chat';
 
-      const data = {
-        message:userInput
-      };
-  try {
-        const response = await axios.post(apiEndpoint, data, { withCredentials: true });
-        console.log(response.data)
-        console.log(messages)
-        return response.data.conversation[1].content;
-      } catch (error) {
-        console.error('Error communicating with the API:', error);
-        return '';
-      }
+    const data = {
+      message: userInput
+    };
+    try {
+      const response = await axios.post(apiEndpoint, data, { withCredentials: true });
+      console.log(response.data)
+      console.log(messages)
+      return response.data.conversation;
+    } catch (error) {
+      console.error('Error communicating with the API:', error);
+      return '';
+    }
   };
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (!input.trim()) return;
-    const userMessage = { text: input, user: true };
-    setMessages((prevMessages) => [...prevMessages, userMessage]);
-    const aiMessage = { text: '...', user: false };
-    setMessages((prevMessages) => [...prevMessages, aiMessage]);
-    const response = await chatWithBot(input);
-    const newAiMessage = { text: response, user: false };
-    setMessages((prevMessages) => [...prevMessages.slice(0, -1), newAiMessage]);
+    const messagesList = await chatWithBot(input)
+    setMessages(messagesList);
     setInput('');
   }
 
-    const toggleView = () => {
-      setViewVisible(!viewVisible);
-    };
+  const toggleView = () => {
+    setViewVisible(!viewVisible);
+  };
 
-    return (
-      
-      
-      <div className="container">
+  return (
+
+
+    <div className="container">
       <div className="row">
         <div className="col-4">
           <div className="card">
@@ -59,9 +54,9 @@ function App() {
                   {messages.map((msg, index) => (
                     <div
                       key={index}
-                      className={`message ${msg.user  ? 'user-message' : 'ai-message'}`}
+                      className={`message ${msg.role === 'user' ? 'user-message' : 'ai-message'}`}
                     >
-                      {msg.text}
+                      {msg.content}
                     </div>
                   ))}
                 </div>
