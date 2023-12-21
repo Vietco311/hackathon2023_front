@@ -43,45 +43,49 @@ function App() {
       
       
       <div className="container">
-        <div className="row">
-          <div className="col-4">
-            <div className="card">
-              <div className="card-body">
-                <div className="card-title">Chat</div>
-                <hr/>
-                {<div className="messages">
-                  {messages.map((msg,index) => {
+      <div className="row">
+        <div className="col-4">
+          <div className="card">
+            <div className="card-body">
+              <div className="card-title">Chat</div>
+              <hr />
+            </div>
+            {viewVisible && (
+              <div id="view" className="visible">
+                <div className="messages">
+                  {messages.map((msg, index) => (
                     <div
-                    key={index}
-                    className={`message ${msg.user ? 'user-message' : 'ai-message'}`}
-                  >
-                    {msg.text}
-                  </div>
-                  })}
-                </div>}
-              </div>
-              {viewVisible && (
-                <div id="view" className="visible">
-                <form onSubmit={e => handleSubmit(e)}>
-                  <div className="card-footer">
-                    <input id="text"
-                          type="text"
-                          value={input}
-                          onChange={(e) => setInput(e.target.value)}
-                          placeholder="Rentrez votre message..."
-                          className="form-control"
-                    />
-                    <br/>
-                    <button type="submit">Envoyer </button>
-                  </div>
-                </form>
+                      key={index}
+                      className={`message ${msg.user ? 'user-message' : 'ai-message'}`}
+                    >
+                      {msg.text}
+                    </div>
+                  ))}
                 </div>
-              )}
-              <button className="chat-button" onClick={toggleView}><img src="logoChatNB.svg" alt="Chat logo" /> </button>
+                <div className="card-footer">
+                  <form onSubmit={handleSubmit}>
+                    <input
+                      id="text"
+                      type="text"
+                      value={input}
+                      onChange={(e) => setInput(e.target.value)}
+                      placeholder="Rentrez votre message..."
+                      className="form-control"
+                    />
+                    <button type="submit">Envoyer</button>
+                  </form>
+                </div>
+              </div>
+            )}
+            <div className="chat-button-container">
+              <button className="chat-button" onClick={toggleView}>
+                <img src="/src/logoChat.svg" alt="Chat logo" />
+              </button>
             </div>
           </div>
         </div>
       </div>
+    </div>
   );
 }
 
