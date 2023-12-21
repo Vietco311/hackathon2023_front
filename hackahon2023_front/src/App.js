@@ -16,10 +16,10 @@ function App() {
     function sendMessage(e) {
       e.preventDefault();
       const msg = {
-        username: e.target.username.value,
         text: e.target.text.value
       };
       setNewMessage(msg);
+      e.target.text.value = '';
     }
 
     const toggleView = () => {
@@ -34,23 +34,17 @@ function App() {
               <div className="card-body">
                 <div className="card-title">Chat</div>
                 <hr/>
-                <div className="messages">
-                  {messages.map(msg => {
-                    return (
-                        <div>{msg.username}: {msg.text}</div>
-                    )
-                  })}
-                </div>
               </div>
               {viewVisible && (
                 <div id="view" className="visible">
                   <form onSubmit={e => sendMessage(e)}>
+                  <div className="messages">
+                {messages.map((msg, index) => {
+                  return <div key={index}>{msg.text}</div>;
+                })}
+                </div>
                   <div className="card-footer">
-                    <input id="username"
-                          type="text"
-                          placeholder="Nom"
-                          className="form-control"
-                    />
+                    
                     <br/>
                     <input id="text"
                           type="text"
@@ -63,7 +57,9 @@ function App() {
                 </form>
                 </div>
               )}
-              <button className="chat-button" onClick={toggleView}><img src="logoChatNB.svg" alt="Chat logo" /> </button>
+              <div class="chat-button-container">
+                <button className="chat-button" onClick={toggleView}><img src="/src/logoChat.svg" alt="Chat logo" /> </button>
+              </div>
             </div>
           </div>
         </div>
