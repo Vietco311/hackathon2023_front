@@ -3,10 +3,11 @@ import axios from 'axios';
 import './App.css';
 import logoChat from './logoChat.svg';
 
+
 function App() {
   const [input, setInput] = useState('');
   const [viewVisible, setViewVisible] = useState(false);
-  const [messages, setMessages] = useState([]);
+  const [messages, setMessages] = useState([]);  
 
   const chatWithBot = async (userInput) => {
     console.log(userInput)
@@ -34,7 +35,7 @@ function App() {
   }
 
   const toggleView = () => {
-    setViewVisible(!viewVisible);
+    setViewVisible(!viewVisible);    
   };
 
   return (
@@ -48,8 +49,16 @@ function App() {
               <div className="card-title">Chat</div>
               <hr />
             </div>
-            {viewVisible && (
-              <div id="view" className="visible">
+            <div id="view" className={viewVisible ? '' : 'hidden'}>
+              <div id='chat_header'>
+                <h2 id="chat_title">Votre IA</h2>
+                <button id="close_button" onClick={toggleView}>
+                  <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+                    <path d="M0 0h24v24H0z" fill="none"></path>
+                  </svg>
+                </button>
+              </div>
                 <div className="messages">
                   {messages.map((msg, index) => (
                     <div
@@ -60,24 +69,25 @@ function App() {
                     </div>
                   ))}
                 </div>
-                <div className="card-footer">
-                  <form onSubmit={handleSubmit}>
+                <div id="chat_footer">
+                  <form id="chat_form" onSubmit={handleSubmit}>
                     <input
                       id="text"
-                      type="text"
+                      type="textarea"
                       value={input}
                       onChange={(e) => setInput(e.target.value)}
                       placeholder="Rentrez votre message..."
                       className="form-control"
                     />
-                    <button type="submit">Envoyer</button>
+                    <button id="submit_button" type="submit" >
+                      <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 500 500"><g><g><polygon points="0,497.25 535.5,267.75 0,38.25 0,216.75 382.5,267.75 0,318.75"></polygon></g></g></svg>
+                    </button>
                   </form>
                 </div>
               </div>
-            )}
             <div className="chat-button-container">
-              <button className="chat-button" onClick={toggleView}>
-                <img src={logoChat} alt="Chat logo" />
+              <button id='chat_button' className={viewVisible ? 'hidden' : ''} onClick={toggleView}>
+                <img style={{width: '100%'}} src={logoChat} alt="Chat logo" />
               </button>
             </div>
           </div>
