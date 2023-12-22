@@ -72,11 +72,11 @@ function ChatBot() {
 
     return (
         <>
-            <div id="view" className={viewVisible ? '' : 'hidden'}>
-                <div id='chat_header'>
-                    <img src={botImg} id='botImg'></img>
-                    <h2 id="chat_title">Votre IA</h2>
-                    <button id="close_button" onClick={toggleView}>
+            <div className={`view ${viewVisible ? '' : 'hidden'}`}>
+                <div className='chat_header'>
+                    <img src={botImg} className='botImg'></img>
+                    <h2 className="chat_title">Votre IA</h2>
+                    <button className="close_button" onClick={toggleView}>
                         <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
                             <path
                                 d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
@@ -93,18 +93,17 @@ function ChatBot() {
                     ))}
                     <div ref={ref} />
                 </div>
-                <div id="chat_footer">
-                    <form id="chat_form" onSubmit={handleSubmit}>
+                <div className="chat_footer">
+                    <form className="chat_form" onSubmit={handleSubmit}>
                         <input
-                            id="text"
+                            className="text"
                             type="textarea"
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
                             placeholder="Rentrez votre message..."
-                            className="form-control"
                         />
                         {isLoaded ? (
-                            <button id="submit_button" type="submit">
+                            <button className="submit_button" type="submit">
                                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                     viewBox="0 0 500 500">
                                     <g>
@@ -124,7 +123,7 @@ function ChatBot() {
                 </div>
             </div>
             <div className="chat-button-container">
-                <button id='chat_button' className={viewVisible ? 'hidden' : ''} onClick={toggleView}>
+                <button className={ `chat_button ${viewVisible ? 'hidden' : ''}`} onClick={toggleView}>
                     <img style={{ width: '100%' }} src={logoChat} alt="Chat logo" />
                 </button>
             </div>

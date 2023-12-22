@@ -11,7 +11,6 @@ function App() {
             <div className="row">
                 <div className="col-4">
                     <div className="card">
-
                         <ChatBot/>
                     </div>
                 </div>
