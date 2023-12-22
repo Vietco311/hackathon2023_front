@@ -56,14 +56,16 @@ function ChatBot() {
     };
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setIsLoaded(false);
-        const message = input
-        setInput('');
-        setMessages([...messages, {content: message, role: 'user'}])
-        if (!input.trim()) return;
-        const messagesList = await chatWithBot(message)
-        setMessages(messagesList);
-        setIsLoaded(true);
+        if (input !== '') {
+            setIsLoaded(false);
+            const message = input
+            setInput('');
+            setMessages([...messages, {content: message, role: 'user'}])
+            if (!input.trim()) return;
+            const messagesList = await chatWithBot(message)
+            setMessages(messagesList);
+            setIsLoaded(true);
+        };
     }
 
     const toggleView = () => {
