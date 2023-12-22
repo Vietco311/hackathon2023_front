@@ -156,11 +156,30 @@
   top: 0px;
 }
 
-.submit_button:hover{
+.submit-button:hover{
   fill: rgb(120, 120, 120);
 }
 
-.username{
+.reset-button{
+  background-color: transparent;
+  border: 0px;
+  border-bottom-right-radius: 10px;
+  box-shadow: none;
+  cursor: pointer;
+  fill: rgb(202, 31, 31);
+  opacity: 1;
+  outline: none;
+  padding: 14px 16px 12px;
+  position: absolute;
+  right: 30px;
+  top: 0px;
+}
+
+.reset-button:hover{
+  fill: rgb(255, 0, 0);
+}
+
+#username{
   margin-bottom: 10px;
 }
 
