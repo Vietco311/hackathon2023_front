@@ -205,32 +205,30 @@
 
 .messages {
   padding: 16px;
-  overflow: scroll;
+  overflow: auto;
   height: 75%;
 }
 
 .message {
   margin: 15px 0;
   padding: 8px;
-  border-radius: 15px;
   font-size: 16px;
   line-height: 1.5;
   width: fit-content;
-}
-
-.message{
   max-width: 70%;
   padding: 12px;
 }
 
 .user-message {
-  background-color: #007bff;
+  background-color: #009ed9;
   color: #fff;
   margin-left: auto;
-
+  border-radius: 15px 15px 0px 15px;
 }
 .ai-message {
-  background-color: #f0f0f0;
+  background-color: #1d2a39e6;
+  color: #fff;
+  border-radius: 15px 15px 15px 0px;
 }
 
 .loader-container {
