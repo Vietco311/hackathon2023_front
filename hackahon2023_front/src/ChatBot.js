@@ -72,6 +72,12 @@ function ChatBot() {
         setViewVisible(!viewVisible);
     };
 
+    const resetChat = () => {
+        axios.get('https://hackathon-2023-api.carlotti-toussaint.com/api/chat/reset', {withCredentials: true}).then((response) => {
+            setMessages(response.data.conversation || []);
+        });
+    }
+
     return (
         <>
             <div id="view" className={viewVisible ? '' : 'hidden'}>
@@ -105,8 +111,15 @@ function ChatBot() {
                             placeholder="Rentrez votre message..."
                             className="form-control"
                         />
+                        <button className="reset-button" type="button" onClick={resetChat}>
+                            <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"></path>
+                                <path d="M0 0h24v24H0z" fill="none"></path>
+                            </svg>
+                        </button>
                         {isLoaded ? (
-                            <button id="submit_button" type="submit">
+                            <button className="submit-button" type="submit">
                                 <svg version="1.1" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
                                     viewBox="0 0 500 500">
                                     <g>
