@@ -3,10 +3,13 @@ import botImg from './botImg.svg';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
+axios.defaults.timeout = 0;
+
 function ChatBot() {
     const [input, setInput] = useState('');
     const [viewVisible, setViewVisible] = useState(false);
     const [messages, setMessages] = useState([]);
+    const [isLoaded, setIsLoaded] = useState(true);
 
     const chatWithBot = async (userInput) => {
         console.log(userInput)
@@ -16,8 +19,9 @@ function ChatBot() {
             message: userInput
         };
         try {
-            const response = await axios.post(apiEndpoint, data, { withCredentials: true });
-
+            const response = await axios.post(apiEndpoint, data, {withCredentials: true});
+            console.log(response.data)
+            console.log(messages)
             return response.data.conversation;
         } catch (error) {
             console.error('Error communicating with the API:', error);
@@ -29,7 +33,7 @@ function ChatBot() {
         setIsLoaded(false);
         const message = input
         setInput('');
-        setMessages([...messages, { content: message, role: 'user' }])
+        setMessages([...messages, {content: message, role: 'user'}])
         if (!input.trim()) return;
         const messagesList = await chatWithBot(message)
         setMessages(messagesList);
@@ -39,10 +43,12 @@ function ChatBot() {
     const toggleView = () => {
         setViewVisible(!viewVisible);
     };
+
     return (
         <>
             <div id="view" className={viewVisible ? '' : 'hidden'}>
                 <div id='chat_header'>
+                    <img src={botImg} id='botImg'></img>
                     <h2 id="chat_title">Votre IA</h2>
                     <button id="close_button" onClick={toggleView}>
                         <svg height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
