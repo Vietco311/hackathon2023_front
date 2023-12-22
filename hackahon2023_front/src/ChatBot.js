@@ -1,6 +1,6 @@
 import logoChat from './logoChat.svg';
 import botImg from './botImg.svg';
-import React, { useState, useEffect } from 'react';
+import React, {useState, useEffect, useRef} from 'react';
 import axios from 'axios';
 
 axios.defaults.timeout = 0;
@@ -10,6 +10,32 @@ function ChatBot() {
     const [viewVisible, setViewVisible] = useState(false);
     const [messages, setMessages] = useState([]);
     const [isLoaded, setIsLoaded] = useState(true);
+
+    const ref = useRef(null);
+
+    useEffect(() => {
+        if (messages.length) {
+            ref.current?.scrollIntoView({
+                behavior: "smooth",
+                block: "end",
+            });
+        }
+    }, [messages.length]);
+
+    useEffect(() => {
+        const getConversation = async () => {
+            const apiEndpoint = 'https://hackathon-2023-api.carlotti-toussaint.com/api/chat';
+
+            try {
+                const response = await axios.get(apiEndpoint, {withCredentials: true});
+                console.log(response.data)
+                setMessages(response.data.conversation || []);
+            } catch (error) {
+                console.error('Error communicating with the API:', error);
+            }
+        };
+        getConversation();
+    }, []);
 
     const chatWithBot = async (userInput) => {
         console.log(userInput)
@@ -65,6 +91,7 @@ function ChatBot() {
                             {msg.content}
                         </div>
                     ))}
+                    <div ref={ref} />
                 </div>
                 <div id="chat_footer">
                     <form id="chat_form" onSubmit={handleSubmit}>
